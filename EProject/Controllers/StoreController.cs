@@ -1,9 +1,11 @@
 ﻿using EProject.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EProject.Controllers
 {
+    [AllowAnonymous]
     public class StoreController : Controller
     {
         private readonly ApplicationDbContext _context;
