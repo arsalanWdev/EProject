@@ -89,36 +89,110 @@ namespace EProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Books model)
+        public IActionResult Edit(BookViewModel model)
         {
-            ModelState.Remove("Categories");
-            if (ModelState.IsValid)
+            // Find the existing book in the database
+            var existingBook = _context.Bookss.Find(model.Id);
+
+            // Retain the existing image URL if no new image is uploaded
+            string filename = existingBook.ImageUrl;
+
+            if (model.photo != null)
             {
-                _context.Bookss.Update(model);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                // Handle file upload
+                string uploadfolder = Path.Combine(_host.WebRootPath, "Images");
+                filename = Guid.NewGuid().ToString() + "_" + model.photo.FileName;
+                string filepath = Path.Combine(uploadfolder, filename);
+                model.photo.CopyTo(new FileStream(filepath, FileMode.Create));
             }
-            return View();
+
+            // Find the selected category by its ID
+            var category = _context.Categories.Find(model.CategoryId);
+
+            // Update the properties of the existing Books object
+            existingBook.Title = model.Title;
+            existingBook.Author = model.Author;
+            existingBook.Description = model.Description;
+            existingBook.ImageUrl = filename; // Update or retain the image URL
+            existingBook.ISBN = model.ISBN;
+            existingBook.DatePublished = model.DatePublished;
+            existingBook.Language = model.Language;
+            existingBook.Price = model.Price;
+            existingBook.Publication = model.Publication;
+            existingBook.CategoryId = model.CategoryId; // Assign the CategoryId
+            existingBook.Categories = category; // Assign the Category object
+
+            _context.Bookss.Update(existingBook);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            if (id != null)
+            if (id == null)
             {
-                NotFound();
+                return NotFound();
             }
+
+            // Load categories for the view
             LoadCategories();
-            var product = _context.Bookss.Find(id);
-            return View(product);
+
+            // Find the book by its ID
+            var book = _context.Bookss.Find(id);
+
+            // If the book doesn't exist, return NotFound
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(Books model)
+        public IActionResult DeleteConfirmed(int id)
         {
-            _context.Bookss.Remove(model);
+            // Find the book by its ID
+            var book = _context.Bookss.Find(id);
+
+            // If the book doesn't exist, return NotFound
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            // Remove the book from the context and save changes
+            _context.Bookss.Remove(book);
             _context.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
+
+
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Find the book by its ID
+            var book = _context.Bookss.Find(id);
+
+            // If the book doesn't exist, return NotFound
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
+        }
+
+
     }
 }
