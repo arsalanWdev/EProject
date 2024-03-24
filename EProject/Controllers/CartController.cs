@@ -1,9 +1,11 @@
 ﻿using EProject.Data;
 using EProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EProject.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;

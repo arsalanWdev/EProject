@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EProject.Data;
 using EProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EProject.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IdentityRole
+
+<h1>You Are About To Delete The Role "@Model.Name"</h1>
+
+<h6>This Action Can't Be Undone</h6>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form method="post" asp-action="ConfirmDelete" asp-route-id="@Model.Id" class="mt-3">
+    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button>
+    <div>
+        <a asp-action="ListOfRoles" class="btn btn-warning"><i class="fa-solid fa-ban"></i> Cancel</a>
+    </div>
+</form>

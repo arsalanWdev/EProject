@@ -14,9 +14,29 @@ namespace EProject.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchString, string minPrice, string maxPrice)
         {
-            var books = _context.Bookss.Include("Categories");
+            var searchBooks = _context.Bookss.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                searchBooks = searchBooks.Where(b => b.Title.Contains(searchString) || b.Author.Contains(searchString));
+            }
+            if (!string.IsNullOrEmpty(minPrice))
+            {
+                var min = int.Parse(minPrice);
+                    searchBooks = searchBooks.Where(b => b.Price >= min);
+                }
+            
+            if (!string.IsNullOrEmpty(maxPrice))
+            {
+                var max = int.Parse(maxPrice);
+
+                searchBooks = searchBooks.Where(b => b.Price <= max);
+                
+            }
+            var books = searchBooks.Include(b => b.Categories).ToList();
+
             return View(books);
         }
 
