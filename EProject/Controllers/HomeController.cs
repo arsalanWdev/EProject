@@ -17,6 +17,16 @@ namespace EProject.Controllers
         {
             return View();
         }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {

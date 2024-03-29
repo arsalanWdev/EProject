@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to My Bookstore</h1>
+    <p class="lead">Explore our vast collection of books and immerse yourself in the world of literature.</p>
+</div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container categories">
+    <h2 class="text-center mb-4">Browse Categories</h2>
+    <div class="row">
+        <!-- Novel Category -->
+        <div class="col-md-6">
+            <div class="card category-item">
+                <div class="card-body category-details">
+                    <h5 class="card-title category-title">Novel</h5>
+                    <p class="card-text category-description">Explore our vast collection of novels from various genres.</p>
+                    <a asp-action="Index" asp-controller="Store" class="btn btn-warning btn-block category-link">Explore Poetry</a>
+                </div>
+            </div>
+        </div>
+        <!-- Poetry Category -->
+        <div class="col-md-6">
+            <div class="card category-item">
+                <div class="card-body category-details">
+                    <h5 class="card-title category-title">Poetry</h5>
+                    <p class="card-text category-description">Discover the beauty of poetry with our diverse collection of poems.</p>
+                    <a asp-action="Index" asp-controller="Store" class="btn btn-warning btn-block category-link">Explore Poetry</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container events-offers">
+    <h2 class="text-center mb-4">Upcoming Events & Special Offers</h2>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <p class="text-center">Stay tuned for upcoming events and special offers!</p>
+        </div>
+    </div>
 </div>

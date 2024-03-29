@@ -21,6 +21,7 @@ namespace EProject.Controllers
         {
             var items = _cart.GetAllCartItems();
             _cart.CartItems = items;
+
             return View(_cart);
         }
 
