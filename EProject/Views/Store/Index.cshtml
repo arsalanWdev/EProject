@@ -8,27 +8,31 @@
 
 
 
-<form asp-action="Index" class="col-4 my-3 p-4" style="background-color: #f8f9fa; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-    <div style="padding: 20px;">
-        <h3 style="color: #333; text-align: center; margin-bottom: 30px;">Find Your Book</h3>
-        <div class="input-group mb-3">
-            <input type="text" name="searchString" placeholder="Search by Title or Author" class="form-control py-2 border-right-0" style="border-radius: 25px 0 0 25px; border-color: #ced4da;" />
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-primary px-4 border-left-0" style="border-radius: 0 25px 25px 0; background-color: #6c63ff; border-color: #6c63ff;">Search</button>
+<div class="container">
+    <div class="row justify-content-center">
+        <form asp-action="Index" class="col-md-6 my-3 p-4" style="background-color: #f8f9fa; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <div style="padding: 20px;">
+                <h3 style="color: #333; text-align: center; margin-bottom: 30px;">Find Your Book</h3>
+                <div class="input-group mb-3">
+                    <input type="text" name="searchString" placeholder="Search by Title or Author" class="form-control py-2 border-right-0" style="border-radius: 25px 0 0 25px; border-color: #ced4da;" />
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary px-4 border-left-0" style="border-radius: 0 25px 25px 0; background-color: #6c63ff; border-color: #6c63ff;">Search</button>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="number" name="minPrice" step="1" placeholder="Min Price" class="form-control py-2 border-right-0" style="border-radius: 25px 0 0 0; border-color: #ced4da;" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white">-</span>
+                    </div>
+                    <input type="number" name="maxPrice" step="1" placeholder="Max Price" class="form-control py-2 border-left-0" style="border-radius: 0 25px 0 0; border-color: #ced4da;" />
+                </div>
+                <div style="margin-top: 30px; text-align: center;">
+                    <button type="reset" class="btn btn-secondary px-4" style="border-radius: 25px; background-color: #6c757d; border-color: #6c757d;">Clear</button>
+                </div>
             </div>
-        </div>
-        <div class="input-group">
-            <input type="number" name="minPrice" step="1" placeholder="Min Price" class="form-control py-2 border-right-0" style="border-radius: 25px 0 0 25px; border-color: #ced4da;" />
-            <div class="input-group-prepend">
-                <span class="input-group-text bg-white">-</span>
-            </div>
-            <input type="number" name="maxPrice" step="1" placeholder="Max Price" class="form-control py-2" style="border-radius: 0 25px 25px 0; border-color: #ced4da;" />
-        </div>
-        <div style="margin-top: 30px; text-align: center;">
-            <a asp-action="Index" type="button" class="btn btn-secondary px-4" style="border-radius: 25px; background-color: #6c757d; border-color: #6c757d;">Clear</a>
-        </div>
+        </form>
     </div>
-</form>
+</div>
 
 
 
