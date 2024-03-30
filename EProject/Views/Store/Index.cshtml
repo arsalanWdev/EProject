@@ -6,8 +6,6 @@
 
 <h2 class="my-4">Store</h2>
 
-
-
 <div class="container">
     <div class="row justify-content-center">
         <form asp-action="Index" class="col-md-6 my-3 p-4" style="background-color: #f8f9fa; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
@@ -26,6 +24,15 @@
                     </div>
                     <input type="number" name="maxPrice" step="1" placeholder="Max Price" class="form-control py-2 border-left-0" style="border-radius: 0 25px 0 0; border-color: #ced4da;" />
                 </div>
+                <div class="input-group mb-3">
+                    <select name="categoryId" class="form-control">
+                        <option value="">Select Category</option>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.CId">@category.CName</option>
+                        }
+                    </select>
+                </div>
                 <div style="margin-top: 30px; text-align: center;">
                     <button type="reset" class="btn btn-secondary px-4" style="border-radius: 25px; background-color: #6c757d; border-color: #6c757d;">Clear</button>
                 </div>
@@ -34,19 +41,16 @@
     </div>
 </div>
 
-
-
-
 <div class="row">
     @foreach (var book in Model)
     {
         <div class="col-3">
             <div class="card my-2 store-card">
                 <a class="a-cleanup text-decoration-none" asp-controller="Store" asp-action="Details" asp-route-id="@book.Id">
-                    <img src="~/Images/@Html.DisplayFor(modelItem => book.ImageUrl)" class="card-img-top card-img-custom" alt="Book Image" >
+                    <img src="~/Images/@Html.DisplayFor(modelItem => book.ImageUrl)" class="card-img-top card-img-custom" alt="Book Image">
                     <div class="card-body">
                         <h5 class="card-title text-dark">@book.Title</h5>
-                        <p class="card-text text-dark">@book.Price.ToString("c")</p>    
+                        <p class="card-text text-dark">@book.Price.ToString("c")</p>
                     </div>
                     <div class="card-footer bg-white border-0">
                         <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@book.Id" class="btn btn-primary float-right store-btn"><i class="fas fa-cart-plus"></i> Add to Cart</a>

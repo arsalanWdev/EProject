@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EProject.Controllers
 {
@@ -14,7 +16,8 @@ namespace EProject.Controllers
         {
             _context = context;
         }
-        public IActionResult Index(string searchString, string minPrice, string maxPrice)
+
+        public IActionResult Index(string searchString, string minPrice, string maxPrice, int? categoryId)
         {
             var searchBooks = _context.Bookss.AsQueryable();
 
@@ -25,17 +28,23 @@ namespace EProject.Controllers
             if (!string.IsNullOrEmpty(minPrice))
             {
                 var min = int.Parse(minPrice);
-                    searchBooks = searchBooks.Where(b => b.Price >= min);
-                }
-            
+                searchBooks = searchBooks.Where(b => b.Price >= min);
+            }
             if (!string.IsNullOrEmpty(maxPrice))
             {
                 var max = int.Parse(maxPrice);
-
                 searchBooks = searchBooks.Where(b => b.Price <= max);
-                
             }
+            if (categoryId.HasValue)
+            {
+                searchBooks = searchBooks.Where(b => b.CategoryId == categoryId.Value);
+            }
+
             var books = searchBooks.Include(b => b.Categories).ToList();
+
+            var categories = _context.Categories.ToList();
+
+            ViewBag.Categories = categories;
 
             return View(books);
         }
@@ -48,20 +57,14 @@ namespace EProject.Controllers
                 return NotFound();
             }
 
-            // Find the book by its ID
-            var book = _context.Bookss.Find(id);
+            var book = _context.Bookss.Include(b => b.Categories).FirstOrDefault(b => b.Id == id);
 
-            // If the book doesn't exist, return NotFound
             if (book == null)
             {
                 return NotFound();
             }
 
             return View(book);
-
-
-
-
         }
     }
 }
