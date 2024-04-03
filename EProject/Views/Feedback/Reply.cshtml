@@ -1,0 +1,15 @@
+﻿@model EProject.Models.suggest
+
+<h1>Reply to Feedback</h1>
+
+<p>Customer Name: @Model.CustomerName</p>
+<p>Message: @Model.Message</p>
+
+<form asp-controller="Feedback" asp-action="Reply" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Admin Response</label>
+        <textarea name="adminResponse" class="form-control">@Model.AdminResponse</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

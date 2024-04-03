@@ -1,0 +1,42 @@
+﻿@model List<EProject.Models.suggest>
+
+<h1>Feedback List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Created At</th>
+            <th>Admin Response</th>
+            <th>Admin Response Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var feedback in Model)
+        {
+            <tr>
+                <td>@feedback.CustomerName</td>
+                <td>@feedback.Email</td>
+                <td>@feedback.Message</td>
+                <td>@feedback.CreatedAt</td>
+                <td>@feedback.AdminResponse</td>
+                <td>@feedback.AdminResponseDate</td>
+                @if(User.IsInRole("Admin")){
+                <td>
+                    @if (string.IsNullOrEmpty(feedback.AdminResponse))
+                    {
+                        <a asp-controller="Feedback" asp-action="Reply" asp-route-id="@feedback.Id">Reply</a>
+                    }
+                    else
+                    {
+                        <span>No Action</span>
+                    }
+                </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
